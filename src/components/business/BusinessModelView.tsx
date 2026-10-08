@@ -9,7 +9,7 @@ import {
 import { useApp } from '../../context/AppContext';
 
 export const BusinessModelView: React.FC = () => {
-  const { tokenBalance, setTokenBalance } = useApp();
+  const { tokenBalance, setTokenBalance, showToast } = useApp();
   const [selectedPlan, setSelectedPlan] = useState<string>('pro');
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
 
@@ -68,7 +68,7 @@ export const BusinessModelView: React.FC = () => {
 
   const handleBuyTokens = (tokens: number) => {
     setTokenBalance(prev => prev + tokens);
-    alert(`Successfully credited +${tokens} tokens to your Aether Studio account!`);
+    showToast(`Successfully credited +${tokens} tokens to your account!`);
   };
 
   return (
@@ -154,7 +154,7 @@ export const BusinessModelView: React.FC = () => {
                 <button
                   onClick={() => {
                     setSelectedPlan(plan.id);
-                    alert(`Switched active plan to ${plan.name}!`);
+                    showToast(`Switched active plan to ${plan.name}!`);
                   }}
                   className={`w-full py-3 rounded-full text-xs font-extrabold cursor-pointer transition-all ${
                     plan.popular

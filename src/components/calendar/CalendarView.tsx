@@ -14,7 +14,7 @@ import {
 import { useApp } from '../../context/AppContext';
 
 export const CalendarView: React.FC = () => {
-  const { scheduledPosts, setCurrentTab, setWizardStep } = useApp();
+  const { scheduledPosts, setCurrentTab, setWizardStep, showToast } = useApp();
   const [selectedDay, setSelectedDay] = useState<number>(8);
 
   const days = [
@@ -178,7 +178,7 @@ export const CalendarView: React.FC = () => {
                   </span>
                 </div>
                 <button
-                  onClick={() => alert(`Post "${post.title}" broadcast triggered immediately!`)}
+                  onClick={() => showToast(`Post "${post.title}" broadcast triggered immediately!`)}
                   className="px-3.5 py-1.5 rounded-full bg-[#1A1824] border border-white/[0.1] hover:border-[#8B5CF6] text-white text-xs font-bold transition-all cursor-pointer"
                 >
                   Send Now

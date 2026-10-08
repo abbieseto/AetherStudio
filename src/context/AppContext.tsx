@@ -35,6 +35,9 @@ interface AppContextType {
   mcpTools: MCPToolInfo[];
   tokenBalance: number;
   setTokenBalance: React.Dispatch<React.SetStateAction<number>>;
+  toastMessage: string | null;
+  showToast: (msg: string) => void;
+  closeToast: () => void;
   // Actions
   handleGenerate: () => Promise<void>;
   addScheduledPost: (post: Omit<ScheduledPost, 'id'>) => void;
@@ -49,6 +52,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [currentTab, setCurrentTab] = useState<string>('studio');
   const [wizardStep, setWizardStep] = useState<number>(1);
   const [tokenBalance, setTokenBalance] = useState<number>(840);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => {
+      setToastMessage(current => (current === msg ? null : current));
+    }, 3800);
+  };
+
+  const closeToast = () => setToastMessage(null);
 
   // Studio form states
   const [promptText, setPromptText] = useState<string>(
@@ -296,6 +309,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         mcpTools,
         tokenBalance,
         setTokenBalance,
+        toastMessage,
+        showToast,
+        closeToast,
         handleGenerate,
         addScheduledPost,
         updateProject,

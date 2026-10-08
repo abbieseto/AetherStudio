@@ -27,7 +27,7 @@ import { useApp } from '../../context/AppContext';
 import { AspectRatio, CaptionItem, CaptionStyle } from '../../types';
 
 export const EditorView: React.FC = () => {
-  const { activeProject, updateProject, setWizardStep, setCurrentTab } = useApp();
+  const { activeProject, updateProject, setWizardStep, setCurrentTab, showToast } = useApp();
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [playheadTime, setPlayheadTime] = useState<number>(1.5);
@@ -356,7 +356,7 @@ export const EditorView: React.FC = () => {
           <div className="pt-4 border-t border-white/[0.08]">
             <button
               onClick={() => {
-                alert('Exporting 4K 60FPS video with embedded CaptionPipe subtitles...');
+                showToast('Exporting 4K 60FPS video with embedded CaptionPipe subtitles...');
               }}
               className="w-full flex items-center justify-center space-x-2 py-2.5 rounded-full bg-[#1A1824] hover:bg-[#242233] text-white border border-white/[0.1] text-xs font-bold transition-all cursor-pointer"
             >
