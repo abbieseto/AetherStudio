@@ -3,15 +3,8 @@ import {
   CreditCard,
   Coins,
   Check,
-  TrendingUp,
-  DollarSign,
-  PieChart,
-  Users,
-  Sparkles,
   Zap,
-  Shield,
-  Layers,
-  ArrowRight
+  Sparkles
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 
@@ -19,7 +12,6 @@ export const BusinessModelView: React.FC = () => {
   const { tokenBalance, setTokenBalance } = useApp();
   const [selectedPlan, setSelectedPlan] = useState<string>('pro');
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
-  const [affiliateCopied, setAffiliateCopied] = useState(false);
 
   const plans = [
     {
@@ -79,25 +71,19 @@ export const BusinessModelView: React.FC = () => {
     alert(`Successfully credited +${tokens} tokens to your Aether Studio account!`);
   };
 
-  const copyAffiliate = () => {
-    navigator.clipboard.writeText('https://aether.studio/ref/abigail-seto');
-    setAffiliateCopied(true);
-    setTimeout(() => setAffiliateCopied(false), 2000);
-  };
-
   return (
     <div className="max-w-7xl mx-auto p-4 md:p-6 space-y-8">
       {/* Header */}
       <div>
         <div className="flex items-center space-x-2 text-xs font-mono text-[#8B5CF6] mb-1">
           <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
-          <span>COMMERCIAL ARCHITECTURE &amp; REVENUE ENGINE</span>
+          <span>PLANS &amp; TOKEN CREDITS</span>
         </div>
         <h2 className="text-2xl font-black text-white font-['Plus_Jakarta_Sans'] tracking-tight">
-          Plans, Tokens &amp; Business Model Canvas
+          Plans &amp; Token Subscriptions
         </h2>
         <p className="text-xs text-[#94A3B8] mt-0.5">
-          Grounded directly in the Strategyzer Business Model Canvas specifications.
+          Select a creator plan or top up token packs for on-demand synthesis.
         </p>
       </div>
 
@@ -217,166 +203,6 @@ export const BusinessModelView: React.FC = () => {
               </button>
             </div>
           ))}
-        </div>
-      </div>
-
-      {/* Business Model Canvas Matrix (Directly from CSV) */}
-      <div className="space-y-4">
-        <div>
-          <h3 className="text-base font-extrabold text-white font-['Plus_Jakarta_Sans']">
-            Strategyzer Business Model Canvas Architecture
-          </h3>
-          <p className="text-xs text-[#94A3B8]">
-            Complete 9-building-block framework implemented into Aether Studio.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-          {/* Key Partners */}
-          <div className="glass-card p-4 rounded-2xl border border-white/[0.08] space-y-2">
-            <span className="text-[10px] font-mono font-bold text-[#8B5CF6] uppercase block">
-              1. Key Partners
-            </span>
-            <ul className="space-y-1.5 text-[#94A3B8] list-disc list-inside">
-              <li>AI model providers (InfoseekAI Seedance, Nanobanana)</li>
-              <li>Social platforms: TikTok, YouTube &amp; Instagram</li>
-              <li>Creative agencies &amp; production studios</li>
-              <li>Cloud and computing providers</li>
-              <li>Smithery MCP Hub infrastructure</li>
-            </ul>
-          </div>
-
-          {/* Key Activities */}
-          <div className="glass-card p-4 rounded-2xl border border-white/[0.08] space-y-2">
-            <span className="text-[10px] font-mono font-bold text-[#06B6D4] uppercase block">
-              2. Key Activities
-            </span>
-            <ul className="space-y-1.5 text-[#94A3B8] list-disc list-inside">
-              <li>Acquire customers &amp; manage subscriptions</li>
-              <li>Improve generation speed &amp; prompt fidelity</li>
-              <li>Integrate social media publishing APIs</li>
-              <li>Maintain CaptionPipe auto-subtitle pipeline</li>
-            </ul>
-          </div>
-
-          {/* Key Propositions */}
-          <div className="glass-card p-4 rounded-2xl border border-white/[0.08] space-y-2">
-            <span className="text-[10px] font-mono font-bold text-[#4edea3] uppercase block">
-              3. Value Propositions
-            </span>
-            <ul className="space-y-1.5 text-[#94A3B8] list-disc list-inside">
-              <li>Ease of use of video creation in 4 steps</li>
-              <li>Platform-optimized content (TikTok, Shorts, Reels)</li>
-              <li>Create, edit, and publish in one place</li>
-              <li>Save time and production money</li>
-              <li>Professional content without technical skills</li>
-            </ul>
-          </div>
-
-          {/* Customer Relationships */}
-          <div className="glass-card p-4 rounded-2xl border border-white/[0.08] space-y-2">
-            <span className="text-[10px] font-mono font-bold text-[#d0bcff] uppercase block">
-              4. Customer Relationships
-            </span>
-            <ul className="space-y-1.5 text-[#94A3B8] list-disc list-inside">
-              <li>Monthly newsfeed &amp; product drops</li>
-              <li>Creator Discord &amp; prompt sharing community</li>
-              <li>Automated AI prompt recommendations</li>
-            </ul>
-          </div>
-
-          {/* Customer Segments */}
-          <div className="glass-card p-4 rounded-2xl border border-white/[0.08] space-y-2">
-            <span className="text-[10px] font-mono font-bold text-[#acedff] uppercase block">
-              5. Customer Segments
-            </span>
-            <ul className="space-y-1.5 text-[#94A3B8] list-disc list-inside">
-              <li>Content creators &amp; viral TikTokers</li>
-              <li>Advertisers &amp; performance marketers</li>
-              <li>Small businesses &amp; E-commerce brands</li>
-              <li>Digital marketing agencies</li>
-            </ul>
-          </div>
-
-          {/* Channels */}
-          <div className="glass-card p-4 rounded-2xl border border-white/[0.08] space-y-2">
-            <span className="text-[10px] font-mono font-bold text-[#ffb4ab] uppercase block">
-              6. Channels
-            </span>
-            <ul className="space-y-1.5 text-[#94A3B8] list-disc list-inside">
-              <li>TikTok viral organic hooks</li>
-              <li>Instagram Reels showcases</li>
-              <li>Influencer sponsorships</li>
-              <li>YouTube tutorials &amp; workflow breakdowns</li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Cost Structure vs Revenue Streams from CSV */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Cost Structure */}
-          <div className="glass-card p-5 rounded-2xl border border-white/[0.08]">
-            <span className="text-[10px] font-mono font-bold text-[#ffb4ab] uppercase block mb-2">
-              Cost Structure (S$60,000 Initial Budget - 6 Months)
-            </span>
-            <div className="space-y-2 font-mono text-xs">
-              <div className="flex justify-between p-2 rounded-lg bg-[#121118]">
-                <span>AI APIs &amp; Infrastructure:</span>
-                <span className="text-white font-bold">S$11,000</span>
-              </div>
-              <div className="flex justify-between p-2 rounded-lg bg-[#121118]">
-                <span>Marketing &amp; Creator Outreach:</span>
-                <span className="text-white font-bold">S$10,000</span>
-              </div>
-              <div className="flex justify-between p-2 rounded-lg bg-[#121118]">
-                <span>Social Media Integrations:</span>
-                <span className="text-white font-bold">S$5,000</span>
-              </div>
-              <div className="flex justify-between p-2 rounded-lg bg-[#121118]">
-                <span>Testing &amp; Miscellaneous:</span>
-                <span className="text-white font-bold">S$4,000</span>
-              </div>
-              <div className="flex justify-between p-2 rounded-lg bg-[#1A1824] border border-white/10 font-bold text-[#4edea3]">
-                <span>Total 6-Month Allocated:</span>
-                <span>S$60,000 (With Runway)</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Revenue Streams & Affiliate */}
-          <div className="glass-card p-5 rounded-2xl border border-white/[0.08] flex flex-col justify-between">
-            <div>
-              <span className="text-[10px] font-mono font-bold text-[#4edea3] uppercase block mb-2">
-                Revenue Streams &amp; Creator Affiliates
-              </span>
-              <ul className="text-xs text-[#94A3B8] space-y-1.5 mb-4">
-                <li>• Monthly &amp; Annual Subscriptions ($29 - $99/mo)</li>
-                <li>• On-demand Token Packs ($9 - $65)</li>
-                <li>• Affiliate Marketing (20% lifetime creator commission)</li>
-                <li>• Sponsored brand style templates</li>
-              </ul>
-            </div>
-
-            <div className="bg-[#121118] p-3 rounded-xl border border-white/[0.06]">
-              <span className="text-[10px] font-mono text-[#94A3B8] block mb-1">
-                YOUR CREATOR AFFILIATE LINK (20% RECURRING):
-              </span>
-              <div className="flex items-center space-x-2">
-                <input
-                  type="text"
-                  readOnly
-                  value="https://aether.studio/ref/abigail-seto"
-                  className="flex-1 bg-[#1A1824] text-[#d0bcff] text-xs font-mono px-2.5 py-1.5 rounded-lg border border-white/[0.06]"
-                />
-                <button
-                  onClick={copyAffiliate}
-                  className="px-3 py-1.5 rounded-lg bg-[#8B5CF6] text-white text-xs font-bold cursor-pointer"
-                >
-                  {affiliateCopied ? 'Copied!' : 'Copy'}
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

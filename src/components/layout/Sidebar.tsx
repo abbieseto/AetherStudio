@@ -32,7 +32,7 @@ export const Sidebar: React.FC = () => {
     { id: 'calendar', label: 'Publishing Calendar', icon: CalendarDays, badge: 'Auto', badgeColor: 'bg-[#10B981]/20 text-[#10B981]' },
     { id: 'social', label: 'Social Accounts', icon: Share2 },
     { id: 'mcp', label: 'MCP Toolbox Hub', icon: Cpu, badge: 'Smithery', badgeColor: 'bg-[#8B5CF6]/20 text-[#d0bcff]' },
-    { id: 'pricing', label: 'Plans & Business Canvas', icon: CreditCard }
+    { id: 'pricing', label: 'Plans & Subscriptions', icon: CreditCard }
   ];
 
   return (
