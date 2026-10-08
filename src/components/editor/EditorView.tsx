@@ -64,6 +64,24 @@ export const EditorView: React.FC = () => {
     return () => cancelAnimationFrame(animId);
   }, [isPlaying, totalDuration]);
 
+  // Sync HTML5 video play/pause
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.play().catch(() => {});
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [isPlaying]);
+
+  // Sync HTML5 video seek to playhead
+  useEffect(() => {
+    if (videoRef.current && Math.abs(videoRef.current.currentTime - playheadTime) > 0.25) {
+      videoRef.current.currentTime = playheadTime;
+    }
+  }, [playheadTime]);
+
   if (!activeProject) {
     return (
       <div className="max-w-md mx-auto py-20 text-center glass-card p-8 rounded-2xl">

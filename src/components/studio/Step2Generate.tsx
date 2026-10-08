@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Sparkles,
   Play,
@@ -29,6 +29,17 @@ export const Step2Generate: React.FC = () => {
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [selectedVariation, setSelectedVariation] = useState<number>(1);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.play().catch(() => {});
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [isPlaying]);
 
   if (isGenerating) {
     return (
@@ -182,14 +193,13 @@ export const Step2Generate: React.FC = () => {
             {activeProject.type === 'video' && activeProject.videoUrl ? (
               <div className="w-full h-full relative group">
                 <video
+                  ref={videoRef}
                   src={activeProject.videoUrl}
                   poster={activeProject.thumbnail}
                   className="w-full h-full object-cover"
                   loop
                   muted
                   playsInline
-                  autoPlay={isPlaying}
-                  controls={false}
                 />
                 {/* Floating overlay play button */}
                 <div

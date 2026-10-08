@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Sparkles,
   Music,
@@ -28,6 +28,17 @@ export const Step3Customize: React.FC = () => {
   const [currentTime, setCurrentTime] = useState(1.2);
   const [selectedCaptionStyle, setSelectedCaptionStyle] = useState<CaptionStyle>('hormozi');
   const [isGeneratingCaptions, setIsGeneratingCaptions] = useState(false);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.play().catch(() => {});
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [isPlaying]);
 
   if (!activeProject) {
     return (
@@ -206,12 +217,12 @@ export const Step3Customize: React.FC = () => {
           >
             {activeProject.type === 'video' && activeProject.videoUrl ? (
               <video
+                ref={videoRef}
                 src={activeProject.videoUrl}
                 poster={activeProject.thumbnail}
                 className="w-full h-full object-cover"
                 loop
                 muted
-                autoPlay={isPlaying}
                 playsInline
               />
             ) : (
