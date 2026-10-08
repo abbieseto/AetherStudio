@@ -53,9 +53,9 @@ export default async function handler(req, res) {
 
     const isVideo = toolId !== 'nanobanana';
     const videoPool = [
-      'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-      'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
-      'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4'
+      'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
+      'https://vjs.zencdn.net/v/oceans.mp4',
+      'https://media.w3.org/2010/05/sintel/trailer.mp4'
     ];
     const imagePool = [
       'https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=800&q=80',

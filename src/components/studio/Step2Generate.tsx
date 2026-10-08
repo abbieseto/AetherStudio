@@ -118,27 +118,58 @@ export const Step2Generate: React.FC = () => {
     );
   }
 
-  // Variations list
-  const variations = [
-    {
-      id: 1,
-      name: 'Variation A (High Dynamic)',
-      thumb: activeProject.thumbnail,
-      badge: 'Selected'
-    },
-    {
-      id: 2,
-      name: 'Variation B (Cinematic Bloom)',
-      thumb: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=400&q=80',
-      badge: 'Alternative'
-    },
-    {
-      id: 3,
-      name: 'Variation C (Anamorphic Drift)',
-      thumb: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80',
-      badge: 'Alternative'
-    }
-  ];
+  // Variations list tailored to project type
+  const variations = activeProject.type === 'video'
+    ? [
+        {
+          id: 1,
+          name: 'Variation A (High Dynamic)',
+          thumb: activeProject.thumbnail,
+          videoUrl: activeProject.videoUrl || 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
+          badge: 'Selected'
+        },
+        {
+          id: 2,
+          name: 'Variation B (Cinematic Bloom)',
+          thumb: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=400&q=80',
+          videoUrl: 'https://vjs.zencdn.net/v/oceans.mp4',
+          badge: 'Alternative'
+        },
+        {
+          id: 3,
+          name: 'Variation C (Anamorphic Drift)',
+          thumb: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80',
+          videoUrl: 'https://media.w3.org/2010/05/sintel/trailer.mp4',
+          badge: 'Alternative'
+        }
+      ]
+    : [
+        {
+          id: 1,
+          name: 'Variation A (Studio Staging)',
+          thumb: activeProject.thumbnail,
+          videoUrl: '',
+          badge: 'Selected'
+        },
+        {
+          id: 2,
+          name: 'Variation B (Obsidian Grade)',
+          thumb: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=400&q=80',
+          videoUrl: '',
+          badge: 'Alternative'
+        },
+        {
+          id: 3,
+          name: 'Variation C (Ambient Neon)',
+          thumb: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80',
+          videoUrl: '',
+          badge: 'Alternative'
+        }
+      ];
+
+  const currentVar = variations.find(v => v.id === selectedVariation) || variations[0];
+  const activeThumb = currentVar.thumb || activeProject.thumbnail;
+  const activeVideo = currentVar.videoUrl || activeProject.videoUrl;
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
@@ -190,16 +221,24 @@ export const Step2Generate: React.FC = () => {
                 : 'w-[320px] h-[400px]'
             }`}
           >
-            {activeProject.type === 'video' && activeProject.videoUrl ? (
+            {activeProject.type === 'video' ? (
               <div className="w-full h-full relative group">
                 <video
                   ref={videoRef}
-                  src={activeProject.videoUrl}
-                  poster={activeProject.thumbnail}
+                  src={activeVideo}
+                  poster={activeThumb}
                   className="w-full h-full object-cover"
                   loop
                   muted
                   playsInline
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (target.src !== 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4') {
+                      target.src = 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4';
+                      target.load();
+                      if (isPlaying) target.play().catch(() => {});
+                    }
+                  }}
                 />
                 {/* Floating overlay play button */}
                 <div
@@ -221,9 +260,12 @@ export const Step2Generate: React.FC = () => {
             ) : (
               <div className="w-full h-full relative">
                 <img
-                  src={activeProject.thumbnail}
+                  src={activeThumb}
                   alt={activeProject.title}
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=85';
+                  }}
                 />
               </div>
             )}
@@ -236,9 +278,9 @@ export const Step2Generate: React.FC = () => {
               <span>{activeProject.type.toUpperCase()}</span>
             </div>
 
-            {/* MCP note top-right */}
+            {/* Model note top-right */}
             <div className="absolute top-3 right-3 px-2 py-0.5 rounded-md bg-[#8B5CF6]/80 text-white text-[9px] font-mono font-bold uppercase">
-              Seedance 2.0
+              {activeProject.type === 'video' ? 'Seedance 2.0' : 'Nanobanana Pro'}
             </div>
           </div>
 

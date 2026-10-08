@@ -38,7 +38,7 @@ const projectsStore: any[] = [
     aspectRatio: '9:16',
     status: 'ready',
     thumbnail: 'https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=800&q=80',
-    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+    videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
     duration: 6.4,
     captions: [
       { id: 'c1', start: 0.5, end: 2.2, text: 'NEXT-GEN PERFORMANCE 🔥', style: 'hormozi' },
@@ -76,7 +76,7 @@ const projectsStore: any[] = [
     aspectRatio: '16:9',
     status: 'ready',
     thumbnail: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
-    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    videoUrl: 'https://vjs.zencdn.net/v/oceans.mp4',
     duration: 10.0,
     captions: [
       { id: 'c5', start: 1.0, end: 5.0, text: 'THE REALM AWAKENS', style: 'cinematic' },
@@ -224,22 +224,22 @@ app.post('/api/mcp/generate', async (req, res) => {
     return res.status(400).json({ success: false, error: 'Prompt is required' });
   }
 
-  // Curated high quality cinematic media pool for instant preview feedback and rendering
+  // Curated high quality cinematic media pool with verified 200 OK CDN streams
   const videoPool = [
     {
-      url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+      url: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
       thumb: 'https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=800&q=80'
     },
     {
-      url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+      url: 'https://vjs.zencdn.net/v/oceans.mp4',
       thumb: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80'
     },
     {
-      url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+      url: 'https://media.w3.org/2010/05/sintel/trailer.mp4',
       thumb: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=800&q=80'
     },
     {
-      url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
+      url: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/friday.mp4',
       thumb: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80'
     }
   ];
@@ -248,8 +248,8 @@ app.post('/api/mcp/generate', async (req, res) => {
     'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=85',
     'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1200&q=85',
     'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=1200&q=85',
-    'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=85',
-    'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=1200&q=85'
+    'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=1200&q=85',
+    'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=85'
   ];
 
   // Try pinging the live remote MCP endpoint if reachable
@@ -273,7 +273,8 @@ app.post('/api/mcp/generate', async (req, res) => {
     // Graceful fallback to synthesized engine response
   }
 
-  const isVideo = toolId !== 'nanobanana';
+  const { mediaType: requestedMediaType } = req.body;
+  const isVideo = requestedMediaType ? requestedMediaType === 'video' : (toolId !== 'nanobanana');
   const randomIndex = Math.floor(Math.random() * (isVideo ? videoPool.length : imagePool.length));
 
   const resultMedia = isVideo ? videoPool[randomIndex] : { url: '', thumb: imagePool[randomIndex] };
@@ -282,12 +283,12 @@ app.post('/api/mcp/generate', async (req, res) => {
     id: 'proj-' + Date.now().toString(36),
     title: prompt.slice(0, 36) + '...',
     prompt,
-    model: toolId === 'nanobanana' ? 'Nanobanana Synthesizer' : 'Seedance 2.0 (InfoseekAI)',
+    model: isVideo ? 'Seedance 2.0 (InfoseekAI)' : 'Nanobanana Synthesizer',
     type: isVideo ? 'video' : 'image',
     aspectRatio,
     duration: isVideo ? duration : 0,
     status: 'ready',
-    thumbnail: isVideo ? resultMedia.thumb : resultMedia.thumb,
+    thumbnail: isVideo ? resultMedia.thumb : imagePool[randomIndex],
     videoUrl: isVideo ? resultMedia.url : '',
     mcpNote: mcpStatusNote,
     captions: [

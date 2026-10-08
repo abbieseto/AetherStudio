@@ -195,6 +195,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          mediaType,
           toolId: mediaType === 'video' ? selectedTool : 'nanobanana',
           prompt: promptText,
           aspectRatio,
@@ -224,8 +225,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         aspectRatio,
         duration: mediaType === 'video' ? videoDuration : 0,
         status: 'ready',
-        thumbnail: 'https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=800&q=80',
-        videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+        thumbnail: mediaType === 'video'
+          ? 'https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=800&q=80'
+          : 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80',
+        videoUrl: mediaType === 'video' ? 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4' : '',
         captions: [
           { id: 'c-1', start: 0.5, end: 2.5, text: 'NEXT-LEVEL AI VIDEO ⚡', style: 'hormozi' },
           { id: 'c-2', start: 2.6, end: 4.8, text: 'READY TO GO VIRAL 🔥', style: 'neon' }

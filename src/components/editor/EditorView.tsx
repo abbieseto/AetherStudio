@@ -222,12 +222,23 @@ export const EditorView: React.FC = () => {
                 poster={activeProject.thumbnail}
                 className="w-full h-full object-cover pointer-events-none"
                 muted
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (target.src !== 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4') {
+                    target.src = 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4';
+                    target.load();
+                    if (isPlaying) target.play().catch(() => {});
+                  }
+                }}
               />
             ) : (
               <img
                 src={activeProject.thumbnail}
                 alt={activeProject.title}
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.src = 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=1200&q=85';
+                }}
               />
             )}
 
