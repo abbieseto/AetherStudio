@@ -31,18 +31,15 @@ export const Navbar: React.FC = () => {
               </span>
             </div>
             <p className="text-[10px] text-[#94A3B8] font-mono tracking-wide -mt-0.5">
-              MCP KINETIC SUITE
+              KINETIC CREATIVE SUITE
             </p>
           </div>
         </div>
 
-        {/* Live MCP Status Pill */}
-        <div
-          onClick={() => setCurrentTab('mcp')}
-          className="hidden md:flex items-center space-x-2 px-3 py-1 rounded-full bg-[#1A1824] border border-white/[0.08] hover:border-[#06B6D4]/50 cursor-pointer transition-colors text-xs"
-        >
+        {/* Live Engine Status Pill */}
+        <div className="hidden md:flex items-center space-x-2 px-3 py-1 rounded-full bg-[#1A1824] border border-white/[0.08] text-xs">
           <span className="w-2 h-2 rounded-full bg-[#06B6D4] animate-pulse"></span>
-          <span className="text-[#94A3B8] font-mono text-[11px]">MCP: Seedance 2.0 &amp; CaptionPipe</span>
+          <span className="text-[#94A3B8] font-mono text-[11px]">Seedance 2.0 &amp; CaptionPipe</span>
           <span className="text-[10px] px-1.5 py-0.2 rounded bg-[#06B6D4]/10 text-[#06B6D4] font-medium">
             Active
           </span>

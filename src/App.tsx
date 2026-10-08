@@ -7,7 +7,6 @@ import { EditorView } from './components/editor/EditorView';
 import { ProjectsView } from './components/projects/ProjectsView';
 import { CalendarView } from './components/calendar/CalendarView';
 import { SocialAccountsView } from './components/social/SocialAccountsView';
-import { McpToolboxView } from './components/mcp/McpToolboxView';
 import { BusinessModelView } from './components/business/BusinessModelView';
 
 const MainLayout: React.FC = () => {
@@ -24,7 +23,6 @@ const MainLayout: React.FC = () => {
           {currentTab === 'projects' && <ProjectsView />}
           {currentTab === 'calendar' && <CalendarView />}
           {currentTab === 'social' && <SocialAccountsView />}
-          {currentTab === 'mcp' && <McpToolboxView />}
           {currentTab === 'pricing' && <BusinessModelView />}
         </main>
       </div>

@@ -31,7 +31,6 @@ export const Sidebar: React.FC = () => {
     { id: 'projects', label: 'Projects & Media', icon: FolderKanban },
     { id: 'calendar', label: 'Publishing Calendar', icon: CalendarDays, badge: 'Auto', badgeColor: 'bg-[#10B981]/20 text-[#10B981]' },
     { id: 'social', label: 'Social Accounts', icon: Share2 },
-    { id: 'mcp', label: 'MCP Toolbox Hub', icon: Cpu, badge: 'Smithery', badgeColor: 'bg-[#8B5CF6]/20 text-[#d0bcff]' },
     { id: 'pricing', label: 'Plans & Subscriptions', icon: CreditCard }
   ];
 
@@ -103,20 +102,20 @@ export const Sidebar: React.FC = () => {
         </div>
       </div>
 
-      {/* Footer MCP status & documentation link */}
+      {/* Footer system status */}
       <div className="p-3 border-t border-white/[0.08]">
         <div className="p-2.5 rounded-xl bg-[#0B0B0F] border border-white/[0.06] text-left">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-[11px] font-mono text-[#94A3B8]">MCP Endpoint</span>
+            <span className="text-[11px] font-mono text-[#94A3B8]">Neural Synthesis</span>
             <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#10B981]/20 text-[#10B981] font-mono">
               Online
             </span>
           </div>
-          <p className="text-[10px] text-white font-mono truncate select-all">
-            mcp.smithery.ai/abigail-seto
+          <p className="text-[10px] text-white font-mono truncate">
+            Aether Engine v2.4
           </p>
           <p className="text-[9px] text-[#958ea0] mt-0.5">
-            Seedance 2.0 • CaptionPipe • Nanobanana
+            Seedance 2.0 • CaptionPipe • 60FPS
           </p>
         </div>
       </div>
