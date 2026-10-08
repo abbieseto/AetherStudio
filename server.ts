@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { GoogleGenAI } from '@google/genai';
+// @ts-ignore
+import healthHandler from './api/health.js';
 
 dotenv.config();
 
@@ -118,6 +120,11 @@ const MCP_SERVERS = {
     ? `https://server.smithery.ai/nanobanana?bearer=${process.env.NANOBANANA_TOKEN}`
     : 'https://server.smithery.ai/nanobanana'
 };
+
+// Health monitoring endpoint
+app.all('/api/health', (req, res) => {
+  return healthHandler(req, res);
+});
 
 // 1. Health check & MCP toolbox status
 app.get('/api/mcp/status', (_req, res) => {
